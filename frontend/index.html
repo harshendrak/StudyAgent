@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyAgent — Universal AI Study Companion</title>
+    <meta name="description" content="Paste your syllabus for any subject. Get AI-powered explanations for every topic. Auto-generate exam study notes with StudyAgent.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index.css">
+    <!-- Export libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+    <script src="https://unpkg.com/docx@9.5.0/build/index.umd.js" defer></script>
+</head>
+<body>
+    <!-- ═══ NAVIGATION BAR ═══ -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="logo" id="logo-link">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">StudyAgent</span>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-view="landing" id="nav-home">Home</a>
+                <a href="#" class="nav-link" data-view="study" id="nav-study">Study</a>
+                <a href="#" class="nav-link" data-view="notes" id="nav-notes">Notes</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══ VIEW: LANDING PAGE ═══ -->
+    <main class="view active" id="view-landing">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-glow"></div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Universal AI Study Assistant
+                </div>
+                <h1 class="hero-title">
+                    Your AI <span class="gradient-text">Study Companion</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Any subject. Any syllabus. Get AI-powered explanations for every topic.<br>
+                    Ace your exams with auto-generated study notes.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg" id="hero-start-btn">
+                        <span class="btn-icon">🚀</span>
+                        Start Studying
+                    </button>
+                    <button class="btn btn-glass btn-lg" id="hero-demo-btn">
+                        <span class="btn-icon">▶</span>
+                        See How It Works
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="stat-topics">∞</span>
+                        <span class="stat-label">Topics Covered</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">AI</span>
+                        <span class="stat-label">Powered Explanations</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">Any</span>
+                        <span class="stat-label">Subject Supported</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Three simple steps to master any syllabus</p>
+            <div class="features-grid">
+                <div class="feature-card" data-step="1">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-step">01</div>
+                    </div>
+                    <h3 class="feature-title">Smart Parsing</h3>
+                    <p class="feature-desc">
+                        Paste your syllabus and our parser auto-detects units, chapters, 
+                        and individual topics. Supports bullet points, numbered lists, and more.
+                    </p>
+                    <div class="feature-tag">Auto-detect</div>
+                </div>
+                <div class="feature-card" data-step="2">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🧠</div>
+                        <div class="feature-step">02</div>
+                    </div>
+                    <h3 class="feature-title">AI Explanations</h3>
+                    <p class="feature-desc">
+                        Each topic gets a detailed breakdown with simple definitions, 
+                        step-by-step explanations, real-life examples, and key takeaways.
+                    </p>
+                    <div class="feature-tag">Gemma 4 Powered</div>
+                </div>
+                <div class="feature-card" data-step="3">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-step">03</div>
+                    </div>
+                    <h3 class="feature-title">Auto Notes</h3>
+                    <p class="feature-desc">
+                        All explanations are auto-saved as beautifully formatted 
+                        notes — export as Markdown, PDF, or Word document for revision, printing, or sharing.
+                    </p>
+                    <div class="feature-tag">PDF • DOCX • Markdown</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-card">
+                <h2 class="cta-title">Ready to ace your exams?</h2>
+                <p class="cta-desc">Start studying any subject smarter with AI-powered topic explanations</p>
+                <button class="btn btn-primary btn-lg" id="cta-start-btn">
+                    <span class="btn-icon">🎓</span>
+                    Begin Your Study Session
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- ═══ VIEW: STUDY DASHBOARD ═══ -->
+    <main class="view" id="view-study">
+        <div class="study-layout">
+            <!-- Left Panel: Syllabus Input -->
+            <aside class="study-sidebar" id="study-sidebar">
+                <div class="sidebar-section">
+                    <h2 class="sidebar-title">
+                        <span class="sidebar-icon">📋</span>
+                        Study Setup
+                    </h2>
+
+                    <div class="subject-input-wrapper">
+                        <label class="input-label" for="subject-input">📚 Subject Name</label>
+                        <input 
+                            type="text" 
+                            id="subject-input" 
+                            class="glass-input" 
+                            placeholder="e.g. AI for Engineers, Data Structures, Physics..."
+                            spellcheck="false"
+                        >
+                    </div>
+
+                    <textarea 
+                        class="syllabus-input" 
+                        id="syllabus-textarea" 
+                        placeholder="Paste your syllabus here...
+
+Example format:
+Unit 1: Introduction
+- Topic one
+- Topic two
+- Topic three
+
+Unit 2: Advanced Concepts
+- Topic four
+- Topic five
+- Topic six"
+                        spellcheck="false"
+                    ></textarea>
+                    
+                    <div class="model-selector">
+                        <label class="input-label" for="model-select">AI Model</label>
+                        <div class="select-wrapper">
+                            <select id="model-select" class="glass-select">
+                                <option value="gemma4:31b-cloud">gemma4:31b-cloud</option>
+                                <option value="gemma3:27b">gemma3:27b</option>
+                                <option value="llama3:8b">llama3:8b</option>
+                                <option value="mistral:7b">mistral:7b</option>
+                                <option value="gpt-oss:120b-cloud">gpt-oss:120b-cloud</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="parse-btn">
+                        <span class="btn-icon">⚡</span>
+                        Parse Syllabus
+                    </button>
+                </div>
+
+                <!-- Parsed Topics -->
+                <div class="sidebar-section topics-section" id="topics-section" style="display: none;">
+                    <div class="topics-header">
+                        <h3 class="sidebar-subtitle">
+                            <span class="sidebar-icon">📦</span>
+                            Topics Found
+                        </h3>
+                        <span class="topic-count" id="topic-count">0 topics</span>
+                    </div>
+                    
+                    <div class="progress-wrapper">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text">0 / 0 completed</span>
+                    </div>
+
+                    <div class="topics-list" id="topics-list">
+                        <!-- Topics dynamically populated -->
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="start-study-btn" style="display: none;">
+                        <span class="btn-icon">▶️</span>
+                        Start Study Session
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Right Panel: Explanation Area -->
+            <section class="study-main" id="study-main">
+                <!-- Empty State -->
+                <div class="empty-state" id="empty-state">
+                    <div class="empty-icon">🧠</div>
+                    <h2 class="empty-title">Ready to Learn</h2>
+                    <p class="empty-desc">
+                        Paste your syllabus on the left panel and hit "Parse Syllabus" to get started.
+                        The AI will explain each topic one by one with real-life examples.
+                    </p>
+                    <div class="empty-features">
+                        <div class="empty-feature">
+                            <span>📖</span> Detailed explanations
+                        </div>
+                        <div class="empty-feature">
+                            <span>💡</span> Real-life examples
+                        </div>
+                        <div class="empty-feature">
+                            <span>🔑</span> Key takeaways
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Explanation View (hidden by default) -->
+                <div class="explanation-view" id="explanation-view" style="display: none;">
+                    <div class="explanation-header">
+                        <div class="explanation-meta">
+                            <span class="unit-badge" id="current-unit">Unit 1</span>
+                            <span class="topic-number" id="current-topic-num">1 / 10</span>
+                        </div>
+                        <h2 class="explanation-title" id="current-topic-title">Topic Title</h2>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div class="loading-state" id="loading-state" style="display: none;">
+                        <div class="ai-thinking">
+                            <div class="thinking-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <p class="thinking-text">AI is generating explanation...</p>
+                        </div>
+                    </div>
+
+                    <!-- Explanation Content -->
+                    <div class="explanation-content" id="explanation-content">
+                        <!-- Rendered markdown goes here -->
+                    </div>
+
+                    <!-- Navigation Footer -->
+                    <div class="explanation-footer" id="explanation-footer" style="display: none;">
+                        <div class="auto-proceed" id="auto-proceed">
+                            <div class="countdown-ring">
+                                <svg viewBox="0 0 36 36">
+                                    <circle cx="18" cy="18" r="16" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                                    <circle cx="18" cy="18" r="16" fill="none" stroke="url(#countdown-gradient)" stroke-width="2" 
+                                            stroke-dasharray="100.53" stroke-dashoffset="0" id="countdown-circle"
+                                            stroke-linecap="round" transform="rotate(-90 18 18)"/>
+                                    <defs>
+                                        <linearGradient id="countdown-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#6C5CE7"/>
+                                            <stop offset="100%" stop-color="#47D6FF"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <span class="countdown-text" id="countdown-text">5</span>
+                            </div>
+                            <span class="proceed-label">Auto-proceeding to next topic...</span>
+                        </div>
+                        <div class="nav-buttons">
+                            <button class="btn btn-glass" id="prev-topic-btn">
+                                ← Previous
+                            </button>
+                            <button class="btn btn-primary" id="next-topic-btn">
+                                Next Topic →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completion View -->
+                <div class="completion-view" id="completion-view" style="display: none;">
+                    <div class="completion-icon">🎉</div>
+                    <h2 class="completion-title">All Topics Covered!</h2>
+                    <p class="completion-desc">
+                        Great job staying focused! You've completed all topics in your syllabus.
+                    </p>
+                    <div class="completion-stats">
+                        <div class="comp-stat">
+                            <span class="comp-stat-num" id="comp-topics">0</span>
+                            <span class="comp-stat-label">Topics Studied</span>
+                        </div>
+                        <div class="comp-stat">
+                            <span class="comp-stat-num" id="comp-units">0</span>
+                            <span class="comp-stat-label">Units Covered</span>
+                        </div>
+                    </div>
+                    <div class="completion-actions">
+                        <div class="export-dropdown" id="completion-export-dropdown">
+                            <button class="btn btn-primary btn-lg export-trigger" id="download-notes-btn">
+                                <span class="btn-icon">📥</span>
+                                Export Notes
+                                <span class="dropdown-arrow">▾</span>
+                            </button>
+                            <div class="export-menu">
+                                <button class="export-option" data-format="md">
+                                    <span class="export-option-icon">📄</span>
+                                    <div class="export-option-info">
+                                        <span class="export-option-title">Markdown (.md)</span>
+                                        <span class="export-option-desc">Raw text, easy to edit</span>
+                                    </div>
+                                </button>
+                                <button class="export-option" data-format="pdf">
+                                    <span class="export-option-icon">📕</span>
+                                    <div class="export-option-info">
+                                        <span class="export-option-title">PDF Document (.pdf)</span>
+                                        <span class="export-option-desc">Print-ready, formatted</span>
+                                    </div>
+                                </button>
+                                <button class="export-option" data-format="docx">
+                                    <span class="export-option-icon">📘</span>
+                                    <div class="export-option-info">
+                                        <span class="export-option-title">Word Document (.docx)</span>
+                                        <span class="export-option-desc">Editable in MS Word</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn btn-glass btn-lg" id="view-notes-btn">
+                            <span class="btn-icon">👁</span>
+                            View Notes
+                        </button>
+                    </div>
+                    <p class="completion-luck">🍀 Good luck on your exam!</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Floating Export Button -->
+        <div class="fab-wrapper" id="fab-wrapper" style="display: none;">
+            <button class="fab" id="fab-download" title="Export Notes">
+                <span>📥</span>
+            </button>
+            <div class="fab-menu" id="fab-menu">
+                <button class="fab-option" data-format="md" title="Markdown">
+                    <span>📄</span>
+                    <span class="fab-option-label">.md</span>
+                </button>
+                <button class="fab-option" data-format="pdf" title="PDF">
+                    <span>📕</span>
+                    <span class="fab-option-label">.pdf</span>
+                </button>
+                <button class="fab-option" data-format="docx" title="Word">
+                    <span>📘</span>
+                    <span class="fab-option-label">.docx</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ═══ VIEW: NOTES VIEWER ═══ -->
+    <main class="view" id="view-notes">
+        <div class="notes-layout">
+            <div class="notes-header-area">
+                <h1 class="notes-title">📝 Study Notes</h1>
+                <p class="notes-subtitle" id="notes-meta">No notes generated yet. Start a study session to generate notes.</p>
+                <div class="notes-actions" id="notes-actions" style="display: none;">
+                    <div class="export-dropdown" id="notes-export-dropdown">
+                        <button class="btn btn-primary export-trigger" id="notes-download-btn">
+                            <span class="btn-icon">📥</span>
+                            Export Notes
+                            <span class="dropdown-arrow">▾</span>
+                        </button>
+                        <div class="export-menu">
+                            <button class="export-option" data-format="md">
+                                <span class="export-option-icon">📄</span>
+                                <div class="export-option-info">
+                                    <span class="export-option-title">Markdown (.md)</span>
+                                    <span class="export-option-desc">Raw text, easy to edit</span>
+                                </div>
+                            </button>
+                            <button class="export-option" data-format="pdf">
+                                <span class="export-option-icon">📕</span>
+                                <div class="export-option-info">
+                                    <span class="export-option-title">PDF Document (.pdf)</span>
+                                    <span class="export-option-desc">Print-ready, formatted</span>
+                                </div>
+                            </button>
+                            <button class="export-option" data-format="docx">
+                                <span class="export-option-icon">📘</span>
+                                <div class="export-option-info">
+                                    <span class="export-option-title">Word Document (.docx)</span>
+                                    <span class="export-option-desc">Editable in MS Word</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn btn-glass" id="notes-copy-btn">
+                        <span class="btn-icon">📋</span>
+                        Copy to Clipboard
+                    </button>
+                </div>
+            </div>
+            <div class="notes-content-wrapper">
+                <div class="notes-content" id="notes-content">
+                    <div class="empty-notes">
+                        <div class="empty-notes-icon">📄</div>
+                        <p>Your study notes will appear here after completing a study session.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>
