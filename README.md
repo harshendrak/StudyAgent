@@ -16,7 +16,7 @@
 
 ## ✨ What is StudyAgent?
 
-**StudyAgent** is a universal AI-powered study assistant that takes your exam syllabus for **any subject**, automatically parses every topic, and generates detailed explanations using local LLMs via [Ollama](https://ollama.com). It comes with both a **CLI tool** and a **modern web UI**, making exam preparation smarter and faster.
+**StudyAgent** is a universal AI-powered study assistant with a modern web UI. Enter **any subject**, paste your exam syllabus, and get detailed AI-generated explanations for every topic — powered by local LLMs via [Ollama](https://ollama.com).
 
 > Think of it as a knowledgeable professor who sits with you and explains every topic of *any* subject — with definitions, step-by-step breakdowns, real-life examples, and key takeaways — then hands you a polished set of notes.
 
@@ -28,13 +28,12 @@
 |---|---|
 | 📚 **Any Subject** | Works with any subject — AI, Data Structures, Physics, Economics, you name it |
 | 📋 **Smart Syllabus Parser** | Auto-detects units, chapters, bullet points, and numbered lists |
-| 🧠 **Subject-Aware AI Explanations** | Dynamic prompts tailored to your specific subject for accurate, relevant explanations |
-| 📝 **Auto Note Generation** | All explanations are compiled into structured study notes |
+| 🧠 **Subject-Aware AI** | Dynamic prompts tailored to your specific subject for accurate, relevant explanations |
+| 📝 **Auto Note Generation** | All explanations compiled into structured study notes |
 | 📥 **Multi-Format Export** | Export notes as **Markdown (.md)**, **PDF (.pdf)**, or **Word (.docx)** |
-| ⏭️ **Auto-Proceed Mode** | Automatically moves to the next topic with a countdown timer |
+| ⏭️ **Auto-Proceed** | Automatically moves to the next topic with a countdown timer |
 | 📊 **Progress Tracking** | Visual progress bar tracks your study session completion |
-| 🌐 **Web UI + CLI** | Use the sleek dark-themed web interface or the terminal-based CLI |
-| 🔌 **Offline-First** | Falls back to generated explanations if the API server is unreachable |
+| 🔌 **Offline Fallback** | Falls back to generated explanations if the API server is unreachable |
 
 ---
 
@@ -72,10 +71,9 @@
 
 ```
 StudyAgent/
-├── main.py              # CLI-based study agent (terminal mode)
-├── server.py            # FastAPI backend (serves API + frontend)
+├── server.py            # FastAPI backend (API + static file server)
 ├── frontend/
-│   ├── index.html       # Web UI markup (landing, study, notes views)
+│   ├── index.html       # Web UI (landing, study dashboard, notes viewer)
 │   ├── index.css        # Glassmorphic dark theme styles
 │   └── app.js           # Frontend logic (parsing, API calls, export)
 └── README.md
@@ -94,7 +92,7 @@ StudyAgent/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/StudyAgent.git
+git clone https://github.com/harshendrak/StudyAgent.git
 cd StudyAgent
 ```
 
@@ -113,7 +111,7 @@ ollama serve
 ollama pull gemma3:27b
 ```
 
-### 4. Run the Web App
+### 4. Run the App
 
 ```bash
 uvicorn server:app --reload --port 8000
@@ -121,19 +119,11 @@ uvicorn server:app --reload --port 8000
 
 Then open **http://localhost:8000** in your browser.
 
-### 5. Or Use the CLI
-
-```bash
-python main.py
-```
-
-Follow the prompts to enter your subject name, paste your syllabus, and start studying in the terminal.
+> 💡 **Quick preview:** You can also open `frontend/index.html` directly in your browser for a UI preview (AI features require the server).
 
 ---
 
 ## 🖥️ Usage
-
-### Web UI
 
 1. Open `http://localhost:8000` in your browser
 2. Click **"Start Studying"** or **"See How It Works"** (loads a demo syllabus)
@@ -141,18 +131,9 @@ Follow the prompts to enter your subject name, paste your syllabus, and start st
 4. Paste your syllabus in the text area
 5. Select your preferred AI model from the dropdown
 6. Click **"Parse Syllabus"** → topics are detected and listed
-7. Click **"Start Study Session"** → AI begins explaining each topic with subject-aware context
+7. Click **"Start Study Session"** → AI explains each topic with subject-aware context
 8. Topics auto-proceed after a 5-second countdown, or navigate manually
 9. When done, export your notes as **Markdown**, **PDF**, or **Word**
-
-### CLI Mode
-
-1. Run `python main.py`
-2. Enter your **subject name** (or press Enter for "General Studies")
-3. Choose your preferred Ollama model (or press Enter for the default)
-4. Paste your syllabus and press Enter twice
-5. The agent explains each topic sequentially and auto-proceeds
-6. Notes are saved as `<SubjectName>_notes_<timestamp>.md` in the current directory
 
 ---
 
@@ -167,9 +148,9 @@ Unit 1: Introduction                  ← Unit/Module/Chapter headers
 * Topic three                          ← Asterisk bullets
 
 Module 2: Advanced Concepts
-1. Topic four                          ← Numbered lists (1. or 1))
+1. Topic four                          ← Numbered lists (1. or 1)
 2. Topic five
-3) Topic six
+3. Topic six
 ```
 
 ---
@@ -184,7 +165,7 @@ Module 2: Advanced Concepts
 | `mistral:7b` | Mistral 7B |
 | `gpt-oss:120b-cloud` | GPT-OSS 120B Cloud |
 
-> You can use any model available in your local Ollama instance by typing the model name in the CLI or selecting it in the web UI dropdown.
+> You can use any model available in your local Ollama instance by selecting it in the web UI dropdown.
 
 ---
 
@@ -214,20 +195,6 @@ StudyAgent dynamically generates system prompts tailored to your subject. The AI
 4. 💡 Why It Matters — Relevance to the subject and real world
 5. 🔑 Key Takeaway — Quick summary for revision
 ```
-
----
-
-## 🔧 Configuration
-
-In `main.py`, you can customize:
-
-```python
-DEFAULT_MODEL      = "gemma4:31b-cloud"   # Default Ollama model
-AUTO_PROCEED_DELAY = 3                     # Seconds between topics (CLI)
-SAVE_NOTES         = True                  # Auto-save notes to file
-```
-
-In the web UI, the auto-proceed countdown is set to **5 seconds** and can be skipped by clicking "Next Topic →".
 
 ---
 
